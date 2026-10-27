@@ -1,0 +1,27 @@
+{
+    "name": "gulliby/ladlemath",
+    "description": "ladlemath",
+    "type": "project",
+    "license": "MIT",
+    "require": {
+        "php": ">=8.2"
+    },
+    "require-dev": {
+        "laravel/pint": "^1.18",
+        "phpstan/phpstan": "^2.1",
+        "phpunit/phpunit": "^11.5"
+    },
+    "autoload": {
+        "psr-4": {
+            "Ladlemath\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Ladlemath\\Tests\\": "tests/"
+        }
+    },
+    "config": {
+        "sort-packages": true
+    }
+}

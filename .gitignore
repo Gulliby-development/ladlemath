@@ -1,0 +1,7 @@
+vendor/
+.baked/
+*.db
+.phpunit.cache/
+.phpstan.cache/
+.pint.cache
+*.log

@@ -8,6 +8,7 @@ use Ladlemath\Base\Failure;
 use Ladlemath\Base\Inputs;
 use Ladlemath\Base\Options;
 use Ladlemath\Base\Output;
+use Ladlemath\Base\Version;
 
 final class Cli
 {
@@ -20,7 +21,7 @@ final class Cli
     /**
      * @param list<string> $args
      */
-    public static function run(array $args, Inputs $inputs, Output $out): int
+    public static function run(array $args, Inputs $inputs, Output $out, ?string $manifest = null): int
     {
         if ($args === []) {
             $out->writeErr(self::USAGE);
@@ -30,6 +31,21 @@ final class Cli
 
         if ($args[0] === '--help' || $args[0] === '-h') {
             $out->writeOut(self::USAGE);
+
+            return 0;
+        }
+
+        if ($args[0] === '--version' || $args[0] === '-V') {
+            $version = Version::fromManifest($manifest);
+            if ($version === null) {
+                $out->writeErr("ladlemath: version is not known
+");
+
+                return 2;
+            }
+
+            $out->writeOut('ladlemath ' . $version . "
+");
 
             return 0;
         }

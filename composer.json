@@ -1,6 +1,7 @@
 {
     "name": "gulliby/ladlemath",
     "description": "ladlemath",
+    "version": "0.2.0",
     "type": "project",
     "license": "MIT",
     "require": {

@@ -58,6 +58,8 @@ usage: ladlemath scale (--serves N | --factor Q) [--promote] [--glyphs] FILE
        ladlemath parse FILE
 ```
 
+`--version` or `-V` as the first argument prints `ladlemath 0.2.0` and a line feed to standard output and exits 0; the number is the `version` field of `composer.json`, read when the launcher starts. Without that field the launcher prints `ladlemath: version is not known` to standard error and exits 2.
+
 An input `FILE` can be a path or `-` for standard input. The commands are:
 
 - **`scale`** multiplies each quantified ingredient by a factor or scales it to a new serving count. Use exactly one of `--factor Q` and `--serves N`. A factor may be an integer, decimal, or fraction, such as `1.5`, `.25`, or `3/2`. `--promote` moves a scaled measure to a larger suitable unit before rounding. `--glyphs` uses supported fraction glyphs in output. If scaling by servings, the recipe needs a valid `Serves:` line.

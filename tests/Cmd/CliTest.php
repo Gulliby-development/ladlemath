@@ -53,7 +53,7 @@ final class CliTest extends TestCase
         self::assertSame(
             "usage: ladlemath scale (--serves N | --factor Q) [--promote] [--glyphs] FILE\n"
                 . "       ladlemath convert --to metric|us [--glyphs] FILE\n"
-                . "       ladlemath merge [--glyphs] FILE...\n"
+                . "       ladlemath merge [--skip NAME[,NAME]...] [--glyphs] FILE...\n"
                 . "       ladlemath check FILE...\n"
                 . "       ladlemath parse FILE\n",
             Cli::USAGE,

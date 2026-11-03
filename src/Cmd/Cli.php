@@ -14,7 +14,7 @@ final class Cli
 {
     public const USAGE = "usage: ladlemath scale (--serves N | --factor Q) [--promote] [--glyphs] FILE\n"
         . "       ladlemath convert --to metric|us [--glyphs] FILE\n"
-        . "       ladlemath merge [--glyphs] FILE...\n"
+        . "       ladlemath merge [--skip NAME[,NAME]...] [--glyphs] FILE...\n"
         . "       ladlemath check FILE...\n"
         . "       ladlemath parse FILE\n";
 
@@ -75,6 +75,7 @@ final class Cli
                 ),
                 'merge' => MergeCommand::run(
                     Options::parse($commandArgs, [
+                        'skip' => 'value',
                         'glyphs' => 'flag',
                     ]),
                     $inputs,

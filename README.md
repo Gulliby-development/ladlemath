@@ -42,7 +42,7 @@ The command is the first argument. The available forms are:
 ```text
 usage: ladlemath scale (--serves N | --factor Q) [--promote] [--glyphs] FILE
        ladlemath convert --to metric|us [--glyphs] FILE
-       ladlemath merge [--glyphs] FILE...
+       ladlemath merge [--skip NAME[,NAME]...] [--glyphs] FILE...
        ladlemath check FILE...
        ladlemath parse FILE
 ```
@@ -53,7 +53,7 @@ The launcher prints that usage text exactly (five lines ending in LF). With no a
 $ php bin/ladlemath.php --help
 usage: ladlemath scale (--serves N | --factor Q) [--promote] [--glyphs] FILE
        ladlemath convert --to metric|us [--glyphs] FILE
-       ladlemath merge [--glyphs] FILE...
+       ladlemath merge [--skip NAME[,NAME]...] [--glyphs] FILE...
        ladlemath check FILE...
        ladlemath parse FILE
 ```
@@ -64,7 +64,7 @@ An input `FILE` can be a path or `-` for standard input. The commands are:
 
 - **`scale`** multiplies each quantified ingredient by a factor or scales it to a new serving count. Use exactly one of `--factor Q` and `--serves N`. A factor may be an integer, decimal, or fraction, such as `1.5`, `.25`, or `3/2`. `--promote` moves a scaled measure to a larger suitable unit before rounding. `--glyphs` uses supported fraction glyphs in output. If scaling by servings, the recipe needs a valid `Serves:` line.
 - **`convert`** requires `--to metric` or `--to us`. It converts supported measures and finishes the result with kitchen rounding. Counts and quantities already in the requested system are left as written. Use `--glyphs` for fraction glyphs.
-- **`merge`** takes one or more recipe files and prints a shopping list. It combines quantities with the same normalized ingredient name and the same family (volume, mass, bare count, or unquantified), while preserving separate families. Notes and recipe metadata are not included. `--glyphs` enables fraction glyphs.
+- **`merge`** takes one or more recipe files and prints a shopping list. It combines quantities with the same normalized ingredient name and the same family (volume, mass, bare count, or unquantified), while preserving separate families. Notes and recipe metadata are not included. `--skip NAME[,NAME]...` leaves the named ingredients out of the list; names are compared like ingredient names are combined (case-insensitive, blank runs count as one blank), every family of a name is skipped, and an empty name in the list is an error. `--glyphs` enables fraction glyphs.
 - **`check`** reads one or more recipes and reports all recipe problems with their file, line, column, code, and message. It exits 1 if it finds problems and 0 if all files are valid.
 - **`parse`** takes one recipe and prints a column-aligned table showing each ingredient line's quantity, unit, name, and note.
 
@@ -221,6 +221,17 @@ $ ladlemath merge a.txt a.txt
 1 tsp salt
 salt to taste
 1/4 cup sugar
+```
+
+Merge a recipe with itself and leave out two ingredients you already have:
+
+```text
+$ ladlemath merge --skip 'Salt, SUGAR' a.txt a.txt
+3 cups all-purpose flour
+1/4 to 3/8 cup butter
+2 large egg
+500 ml milk
+salt to taste
 ```
 
 Show the parsed ingredient table:
